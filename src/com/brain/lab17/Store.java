@@ -50,6 +50,8 @@ public class Store extends User {
 
     public static Boolean login(Store store) {
         User user = new User();
+        Main.tryLogin();
+
         return user.getLogin().equals(store.getLogin()) & user.getPassword().equals(store.getPassword());
     }
 
@@ -60,12 +62,16 @@ public class Store extends User {
                 break;
             case MANAGER:
                 System.out.println("Менеджер магазина, может общаться с клиентами");
+                break;
             case CUSTOMER:
                 System.out.println("Клиент магазина, может покупать товары и пользоваться дисконтом");
+                break;
             case DIRECTOR:
                 System.out.println("Директор магазина, может управлять кадрами, и ценами");
+                break;
             case ADMINISTRATOR:
                 System.out.println("Администратор магазина, может добавлять товары и редактировать их описание");
+                break;
         }
 
     }
