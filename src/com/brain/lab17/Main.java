@@ -9,6 +9,7 @@ public class Main {
         User use3 = new User("Gena","65468468","gena",Posts.MANAGER);
         User use4 = new User("Vasia","65468468","vasia",Posts.CUSTOMER);
         User use5 = new User("Dima","65468468","dima",Posts.ANONYM);
+        Store.userList(user,use2,use3,use4,use5);
         Store store = new Store();
         store.setNameStore("ALLo");
         store.setUrlStore("www.allo.com");

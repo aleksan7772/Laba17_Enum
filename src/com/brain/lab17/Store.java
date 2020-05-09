@@ -2,6 +2,8 @@ package com.brain.lab17;
 
 import java.util.Arrays;
 
+import static com.brain.lab17.Main.*;
+
 public class Store extends User {
     private String nameStore;
     private String urlStore;
@@ -50,8 +52,7 @@ public class Store extends User {
 
     public static Boolean login(Store store) {
         User user = new User();
-        Main.tryLogin();
-
+        tryLogin();
         return user.getLogin().equals(store.getLogin()) & user.getPassword().equals(store.getPassword());
     }
 
@@ -82,9 +83,8 @@ public class Store extends User {
         return store.getAuthorizedUser();
     }
 
-    public static void userList(User user, User user2, User user1, User user21, User user3) {
-        Store store = new Store();
-        for (Store users : store.setUsers()) {
+    public static void userList(User...users) {
+        for (User user : users) {
 
         }
     }
