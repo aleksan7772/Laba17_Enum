@@ -1,21 +1,40 @@
 package com.brain.lab17;
 
 import java.util.Arrays;
+import java.util.Objects;
 
-import static com.brain.lab17.Main.*;
+import static com.brain.lab17.Posts.*;
 
-public class Store extends User {
+
+public class Store  {
     private String nameStore;
     private String urlStore;
-    private String[] users;
+    private User[] users;
     private String authorizedUser;
 
-    public Store(Boolean login, String password, String name) {
-        super(login, password, name);
+    public Store(String allo, String s) {
     }
 
     public Store() {
-        super();
+
+    }
+
+
+    public static Boolean login(Store store) {
+        User user = new User();
+        for (int i = 0; i < store.getUsers().length; i++) {
+            User storeUser = store.getUsers()[i];
+
+        }
+//        return user.getLogin().equals(store.getLogin()) & user.getPassword().equals(store.getPassword());
+        return true;
+    }
+
+    public Store(String nameStore, String urlStore, User[] users, String authorizedUser) {
+        this.nameStore = nameStore;
+        this.urlStore = urlStore;
+        this.users = users;
+        this.authorizedUser = authorizedUser;
     }
 
     public String getNameStore() {
@@ -34,11 +53,11 @@ public class Store extends User {
         this.urlStore = urlStore;
     }
 
-    public String[] getUsers() {
+    public User[] getUsers() {
         return users;
     }
 
-    public void setUsers(String[] users) {
+    public void setUsers(User[] users) {
         this.users = users;
     }
 
@@ -50,14 +69,8 @@ public class Store extends User {
         this.authorizedUser = authorizedUser;
     }
 
-    public static Boolean login(Store store) {
-        User user = new User();
-        tryLogin();
-        return user.getLogin().equals(store.getLogin()) & user.getPassword().equals(store.getPassword());
-    }
-
-    void getCurrentUserRights() {
-        switch (getRole()) {
+    void getCurrentUserRights(User user) {
+        switch (user.getRole()) {
             case ANONYM:
                 System.out.println("Анонимный пользователь, может покупать товары и или авторизоваться");
                 break;
@@ -83,14 +96,10 @@ public class Store extends User {
         return store.getAuthorizedUser();
     }
 
-    public static void userList(User...users) {
+    public static User[] userList(User...users) {
         for (User user : users) {
-
         }
-    }
-
-    private Store[] setUsers() {
-        return new Store[0];
+        return users;
     }
 
     @Override
