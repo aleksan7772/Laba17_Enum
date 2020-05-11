@@ -6,7 +6,7 @@ import java.util.Objects;
 import static com.brain.lab17.Posts.*;
 
 
-public class Store  {
+public class Store {
     private String nameStore;
     private String urlStore;
     private User[] users;
@@ -24,10 +24,10 @@ public class Store  {
         User user = new User();
         for (int i = 0; i < store.getUsers().length; i++) {
             User storeUser = store.getUsers()[i];
-
         }
-//        return user.getLogin().equals(store.getLogin()) & user.getPassword().equals(store.getPassword());
         return true;
+//        return user.getLogin().equals(store.getLogin()) & user.getPassword().equals(store.getPassword());
+
     }
 
     public Store(String nameStore, String urlStore, User[] users, String authorizedUser) {
@@ -96,7 +96,7 @@ public class Store  {
         return store.getAuthorizedUser();
     }
 
-    public static User[] userList(User...users) {
+    public static User[] userList(User... users) {
         for (User user : users) {
         }
         return users;
