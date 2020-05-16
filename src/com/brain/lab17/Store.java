@@ -1,36 +1,36 @@
 package com.brain.lab17;
 
 import java.util.Arrays;
-import java.util.Objects;
-
-import static com.brain.lab17.Posts.*;
 
 
 public class Store {
     private String nameStore;
     private String urlStore;
     private User[] users;
-    private String authorizedUser;
+    private User authorizedUser;
 
     public Store(String allo, String s) {
     }
 
     public Store() {
-
     }
 
 
-    public static Boolean login(Store store) {
-        User user = new User();
-        for (int i = 0; i < store.getUsers().length; i++) {
-            User storeUser = store.getUsers()[i];
+    public boolean login(String login, String passwords) {
+        for (User user : userList(users)) {
+            if (user.isLoginCorrect(login)) {
+                if (user.isPasswordCorrect(passwords)) {
+                    authorizedUser = user;
+                    System.out.println("Авторизация прошла успешно");
+                    return true;
+                } else break;
+            }
         }
-        return true;
-//        return user.getLogin().equals(store.getLogin()) & user.getPassword().equals(store.getPassword());
-
+        System.out.println("Неверный логин или пароль");
+        return false;
     }
 
-    public Store(String nameStore, String urlStore, User[] users, String authorizedUser) {
+    public Store(String nameStore, String urlStore, User[] users, User authorizedUser) {
         this.nameStore = nameStore;
         this.urlStore = urlStore;
         this.users = users;
@@ -62,15 +62,15 @@ public class Store {
     }
 
     public String getAuthorizedUser() {
-        return authorizedUser;
+        return String.valueOf(authorizedUser);
     }
 
-    public void setAuthorizedUser(String authorizedUser) {
+    public void setAuthorizedUser(User authorizedUser) {
         this.authorizedUser = authorizedUser;
     }
 
-    void getCurrentUserRights(User user) {
-        switch (user.getRole()) {
+    void getCurrentUserRights() {
+        switch (authorizedUser.getRole()) {
             case ANONYM:
                 System.out.println("Анонимный пользователь, может покупать товары и или авторизоваться");
                 break;
@@ -86,14 +86,15 @@ public class Store {
             case ADMINISTRATOR:
                 System.out.println("Администратор магазина, может добавлять товары и редактировать их описание");
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + authorizedUser.getRole());
         }
 
     }
 
-    public static String logout(Store store) {
-        store.setAuthorizedUser(null);
+    public void logout() {
+        authorizedUser = null;
         System.out.println("Пользователь вышел из системы");
-        return store.getAuthorizedUser();
     }
 
     public static User[] userList(User... users) {
@@ -110,6 +111,29 @@ public class Store {
                 ", users=" + Arrays.toString(users) +
                 ", authorizedUser='" + authorizedUser + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Store store = (Store) o;
+
+        if (nameStore != null ? !nameStore.equals(store.nameStore) : store.nameStore != null) return false;
+        if (urlStore != null ? !urlStore.equals(store.urlStore) : store.urlStore != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(users, store.users)) return false;
+        return authorizedUser != null ? authorizedUser.equals(store.authorizedUser) : store.authorizedUser == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nameStore != null ? nameStore.hashCode() : 0;
+        result = 31 * result + (urlStore != null ? urlStore.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(users);
+        result = 31 * result + (authorizedUser != null ? authorizedUser.hashCode() : 0);
+        return result;
     }
 }
 

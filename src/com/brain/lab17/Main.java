@@ -1,6 +1,5 @@
 package com.brain.lab17;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -12,16 +11,19 @@ public class Main {
         User use5 = new User("Dima", "65468468", "dima", Posts.ANONYM);
         Store store = new Store("allo","www.allo.com");
         store.setUsers(Store.userList(user, use2, use3, use4, use5));
-        tryLogin();
+        for (; ; ) tryLogin(store);
     }
 
-    static void tryLogin() {
-        User user = new User();
+    static void tryLogin(Store store) {
         System.out.println("Введите логин: ");
-        Scanner scanner = new Scanner(System.in);
-        user.setLogin(scanner.nextLine());
+        Scanner inputLogin = new Scanner(System.in);
+        Scanner inputPassword = new Scanner(System.in);
+        String login = inputLogin.nextLine();
         System.out.println("Введите пароль: ");
-        user.setPassword(scanner.nextLine());
-        System.out.printf("%s %s%n", user.getLogin(), user.getPassword());
+        String password = inputPassword.nextLine();
+        if (store.login(login, password)) {
+            store.getCurrentUserRights();
+            store.logout();
+        }
     }
 }

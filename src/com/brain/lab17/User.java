@@ -20,6 +20,12 @@ public class User {
     public User() {
 
     }
+    public boolean isLoginCorrect(String login) {
+        return login.equals(this.login);
+    }
+    protected boolean isPasswordCorrect(String password) {
+        return password.equals(this.password);
+    }
 
 
     public String getLogin() {
@@ -62,5 +68,27 @@ public class User {
                 ", name='" + name + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        return role == user.role;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = login != null ? login.hashCode() : 0;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        return result;
     }
 }
